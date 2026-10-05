@@ -122,5 +122,51 @@ npm run build
 
 ---
 
+## 🔔 Firebase Push Notifications (FCM HTTP v1)
+
+The platform supports instant, real-time push notifications dispatched to admin devices (phones and desktop browsers) whenever a new client submits a project enquiry.
+
+### Firebase Setup Guide:
+
+#### 1. Create a Firebase Project & Web App
+1. Go to the [Firebase Console](https://console.firebase.google.com/) and click **"Add Project"** (e.g. `mrd-cinema-editz`).
+2. Inside your Firebase Project, click **"Add App"** and select **Web (`</>`)**.
+3. Register the app name (e.g. `MRD Studio Admin`) and copy the `firebaseConfig` credentials to `frontend/.env`:
+   ```env
+   VITE_FIREBASE_API_KEY="AIzaSy..."
+   VITE_FIREBASE_AUTH_DOMAIN="mrd-cinema-editz.firebaseapp.com"
+   VITE_FIREBASE_PROJECT_ID="mrd-cinema-editz"
+   VITE_FIREBASE_STORAGE_BUCKET="mrd-cinema-editz.firebasestorage.app"
+   VITE_FIREBASE_MESSAGING_SENDER_ID="123456789012"
+   VITE_FIREBASE_APP_ID="1:123456789012:web:abcdef123456"
+   ```
+
+#### 2. Generate Web Push Certificate (VAPID Key)
+1. In Firebase Console, go to **Project Settings (⚙️) > Cloud Messaging tab**.
+2. Scroll to **Web configuration > Web Push certificates**.
+3. Click **"Generate key pair"**.
+4. Copy the generated **Key pair (Public Key)** and add it to `frontend/.env`:
+   ```env
+   VITE_FIREBASE_VAPID_KEY="BEl62iUYg..."
+   ```
+
+#### 3. Generate Backend Service Account Key (FCM HTTP v1 API)
+1. In Firebase Console, go to **Project Settings (⚙️) > Service accounts tab**.
+2. Select **Firebase Admin SDK** and click **"Generate new private key"** (downloads a `.json` file).
+3. Add the project ID and either the full JSON string or local path to `backend/.env`:
+   ```env
+   FIREBASE_PROJECT_ID="mrd-cinema-editz"
+   FIREBASE_CREDENTIALS_JSON='{"type":"service_account","project_id":"mrd-cinema-editz","private_key":"...","client_email":"..."}'
+   ```
+
+#### 4. Authorized Domains (Production)
+* In Firebase Console > **Authentication > Settings > Authorized domains**, add your custom domain (e.g. `mrdcinemaeditz.com`). `localhost` is authorized by default.
+
+#### 5. Enabling on Devices
+* **Desktop / Android:** Log into `/admin`, navigate to **Site Settings**, and click **"Enable Push on this Device"**. Accept the browser permission prompt.
+* **iPhone / iPad (iOS 16.4+):** Open Safari, tap **Share > Add to Home Screen**, launch the installed PWA app, log in to `/admin`, and enable push notifications.
+
+---
+
 ## 📄 License
 Created for **MRD CINEMA EDITZ**. All rights reserved.

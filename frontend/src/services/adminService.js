@@ -177,5 +177,21 @@ export const adminService = {
   updateSiteSettings: async (settings) => {
     const response = await api.put('/admin/site_settings', { settings });
     return response.data;
+  },
+
+  // Push Notifications
+  registerPushDevice: async (data) => {
+    const response = await api.post('/admin/push/register', data);
+    return response.data;
+  },
+
+  unregisterPushDevice: async (data = {}) => {
+    const response = await api.delete('/admin/push/unregister', { data });
+    return response.data;
+  },
+
+  sendTestPushNotification: async () => {
+    const response = await api.post('/admin/push/test');
+    return response.data;
   }
 };
