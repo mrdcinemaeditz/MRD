@@ -52,9 +52,9 @@ module Api
         def test
           unless FirebaseMessagingService.configured?
             return render json: {
-              warning: "Firebase credentials are not yet configured in backend environment",
+              error: "Firebase Service Account key is missing or invalid in backend/.env. Please generate the private key JSON from Firebase Console > Project Settings > Service Accounts.",
               status: "unconfigured"
-            }, status: :ok
+            }, status: :unprocessable_entity
           end
 
           tokens_count = current_user.device_tokens.count
@@ -64,17 +64,28 @@ module Api
             }, status: :unprocessable_entity
           end
 
-          SendFirebasePushJob.perform_now({
-            user_id: current_user.id,
-            title: "Test Notification - MRD CINEMA EDITZ",
-            body: "Push notification system is connected & operational on this device!",
-            url: "/admin/settings"
-          })
+          service = FirebaseMessagingService.new
+          last_result = nil
+          current_user.device_tokens.find_each do |token_record|
+            last_result = service.send_to_token(
+              token_record,
+              title: "Test Notification - MRD CINEMA EDITZ",
+              body: "Push notification system is connected & operational on this device!",
+              url: "/admin/settings"
+            )
+          end
 
-          render json: {
-            message: "Test push notification dispatched to #{tokens_count} registered device(s)",
-            devices_count: tokens_count
-          }, status: :ok
+          if last_result && !last_result[:success]
+            render json: {
+              error: "Failed to deliver push via Google FCM: #{last_result[:error] || last_result[:status]}",
+              details: last_result
+            }, status: :unprocessable_entity
+          else
+            render json: {
+              message: "Test push notification dispatched to #{tokens_count} registered device(s)",
+              devices_count: tokens_count
+            }, status: :ok
+          end
         end
       end
     end

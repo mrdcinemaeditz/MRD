@@ -7,7 +7,16 @@ class FirebaseMessagingService
   FCM_SCOPE = "https://www.googleapis.com/auth/firebase.messaging".freeze
 
   def self.configured?
-    ENV["FIREBASE_PROJECT_ID"].present? && (ENV["FIREBASE_CREDENTIALS_JSON"].present? || ENV["FIREBASE_CREDENTIALS_PATH"].present?)
+    return false if ENV["FIREBASE_PROJECT_ID"].blank?
+    return true if ENV["FIREBASE_CREDENTIALS_PATH"].present? && File.exist?(ENV["FIREBASE_CREDENTIALS_PATH"])
+    return false if ENV["FIREBASE_CREDENTIALS_JSON"].blank?
+
+    begin
+      parsed = JSON.parse(ENV["FIREBASE_CREDENTIALS_JSON"])
+      parsed.is_a?(Hash) && (parsed["private_key"].present? || parsed[:private_key].present?)
+    rescue StandardError
+      false
+    end
   end
 
   def self.send_to_device(device_token_record, title:, body:, data: {}, url: "/admin/enquiries")

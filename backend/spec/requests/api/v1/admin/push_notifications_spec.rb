@@ -91,7 +91,7 @@ RSpec.describe "Api::V1::Admin::PushNotifications", type: :request do
   describe "POST /api/v1/admin/push/test" do
     it "returns unconfigured status if Firebase credentials are not present" do
       post "/api/v1/admin/push/test", headers: admin_headers
-      expect(response).to have_http_status(:ok)
+      expect(response).to have_http_status(:unprocessable_entity)
       json = JSON.parse(response.body)
       expect(json["status"]).to eq("unconfigured")
     end
