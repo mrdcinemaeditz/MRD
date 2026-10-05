@@ -70,6 +70,11 @@ Rails.application.routes.draw do
 
         get "site_settings", to: "site_settings#index"
         put "site_settings", to: "site_settings#update_bulk"
+
+        # Firebase Push Notifications
+        post "push/register", to: "push_notifications#register"
+        delete "push/unregister", to: "push_notifications#unregister"
+        post "push/test", to: "push_notifications#test"
       end
     end
   end

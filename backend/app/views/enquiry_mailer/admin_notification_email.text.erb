@@ -7,7 +7,7 @@ Email: <%= @enquiry.email %>
 <% if @enquiry.phone.present? %>Phone / WhatsApp: <%= @enquiry.phone %><% end %>
 Service Requested: <%= @enquiry.service_type || 'General' %>
 Estimated Budget: <%= @enquiry.budget_range || 'Not specified' %>
-Submitted At: <%= @enquiry.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+Submitted At: <%= (@enquiry.created_at || Time.current).strftime("%B %d, %Y at %I:%M %p") %>
 
 PROJECT SCOPE & MESSAGE:
 --------------------------------------------------

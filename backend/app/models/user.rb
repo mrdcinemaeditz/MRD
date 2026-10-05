@@ -7,6 +7,7 @@ class User < ApplicationRecord
   has_many :comments, dependent: :destroy
   has_many :liked_videos, through: :likes, source: :video
   has_many :reports, dependent: :destroy
+  has_many :device_tokens, dependent: :destroy
 
   has_one_attached :avatar
 

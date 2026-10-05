@@ -261,6 +261,7 @@ SiteSetting.set("media_kit_stats", {
   top_demographics: "18-34 Yrs (78% US, UK, IN)"
 }, "media_kit", "json")
 SiteSetting.set("whatsapp_alert_enabled", "false", "notifications", "boolean")
+SiteSetting.set("push_notifications_enabled", "true", "notifications", "boolean")
 SiteSetting.set("admin_notification_email", "admin@mrdcinemaeditz.com", "notifications")
 
 puts "✅ Site settings initialized"

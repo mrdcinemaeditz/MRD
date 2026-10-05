@@ -1,8 +1,9 @@
-import React, { useState, useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { Bell, Mail, CheckCheck, ArrowUpRight, Sparkles, Clock } from 'lucide-react';
 import { adminService } from '../../services/adminService';
 import { useToast } from '../../context/ToastContext';
+import { onForegroundMessage, isFirebaseConfigured } from '../../services/firebase';
 
 export const NotificationBell = () => {
   const [unreadCount, setUnreadCount] = useState(0);
@@ -11,9 +12,9 @@ export const NotificationBell = () => {
   const [loading, setLoading] = useState(false);
   const dropdownRef = useRef(null);
   const navigate = useNavigate();
-  const { success, error } = useToast();
+  const { success, error, info } = useToast();
 
-  const fetchNotifications = async () => {
+  const fetchNotifications = useCallback(async () => {
     try {
       const data = await adminService.getUnreadEnquiriesCount();
       setUnreadCount(data.unread_count || 0);
@@ -21,7 +22,7 @@ export const NotificationBell = () => {
     } catch (err) {
       // Silently ignore background polling errors
     }
-  };
+  }, []);
 
   useEffect(() => {
     fetchNotifications();
@@ -29,7 +30,62 @@ export const NotificationBell = () => {
     // Poll every 30 seconds
     const interval = setInterval(fetchNotifications, 30000);
     return () => clearInterval(interval);
-  }, []);
+  }, [fetchNotifications]);
+
+  // Foreground push notification listener
+  useEffect(() => {
+    if (!isFirebaseConfigured()) return;
+
+    let unsubscribe = null;
+    const setupPushListener = async () => {
+      try {
+        unsubscribe = await onForegroundMessage((payload) => {
+          console.log('[NotificationBell] Push received in foreground:', payload);
+          fetchNotifications();
+
+          const title = payload?.notification?.title || payload?.data?.title || 'New Client Enquiry';
+          const body = payload?.notification?.body || payload?.data?.body || 'A new project proposal was submitted.';
+          const targetUrl = payload?.data?.url || '/admin/enquiries';
+
+          // 1. Show in-app toast notification
+          if (info) {
+            info(`${title}: ${body}`);
+          }
+
+          // 2. Show native browser popup notification even when looking at the tab
+          if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+            try {
+              const popup = new Notification(title, {
+                body: body,
+                icon: '/icons/icon-192x192.png',
+                badge: '/icons/icon-192x192.png',
+                tag: 'mrd-fg-' + Date.now(),
+                requireInteraction: false
+              });
+
+              popup.onclick = () => {
+                window.focus();
+                navigate(targetUrl);
+                popup.close();
+              };
+            } catch (popupErr) {
+              console.warn('[NotificationBell] Could not spawn native Notification constructor:', popupErr);
+            }
+          }
+        });
+      } catch (err) {
+        console.warn('[NotificationBell] Could not attach push listener:', err);
+      }
+    };
+
+    setupPushListener();
+
+    return () => {
+      if (typeof unsubscribe === 'function') {
+        unsubscribe();
+      }
+    };
+  }, [fetchNotifications, info]);
 
   // Close dropdown on click outside
   useEffect(() => {

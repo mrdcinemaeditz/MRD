@@ -25,7 +25,7 @@
 
       <div style="margin-bottom: 20px;">
         <span class="badge">New Enquiry</span>
-        <span style="color: #71717a; font-size: 12px; float: right;"><%= @enquiry.created_at.strftime("%B %d, %Y at %I:%M %p") %></span>
+        <span style="color: #71717a; font-size: 12px; float: right;"><%= (@enquiry.created_at || Time.current).strftime("%B %d, %Y at %I:%M %p") %></span>
       </div>
 
       <div class="field-group">
