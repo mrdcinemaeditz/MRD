@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[8.1].define(version: 2026_10_04_100000) do
+ActiveRecord::Schema[8.1].define(version: 2026_10_05_120000) do
   create_table "active_storage_attachments", charset: "utf8mb4", collation: "utf8mb4_0900_ai_ci", force: :cascade do |t|
     t.string "name", null: false
     t.string "record_type", null: false
@@ -193,9 +193,13 @@ ActiveRecord::Schema[8.1].define(version: 2026_10_04_100000) do
     t.text "seo_description"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "source_type", default: "external", null: false
+    t.integer "width"
+    t.integer "height"
     t.index ["category_id"], name: "index_videos_on_category_id"
     t.index ["is_featured"], name: "index_videos_on_is_featured"
     t.index ["slug"], name: "index_videos_on_slug", unique: true
+    t.index ["source_type"], name: "index_videos_on_source_type"
     t.index ["status", "published_at"], name: "index_videos_on_status_and_published_at"
   end
 

@@ -151,10 +151,19 @@ export const VideoDetail = ({ onOpenAuth }) => {
   }
 
   const isReel = video.aspect_ratio === '9:16';
+  const isDirectFile =
+    video.source_type === 'file' ||
+    video.has_custom_video ||
+    (video.video_url && (
+      video.video_url.includes('/rails/active_storage/') ||
+      video.video_url.endsWith('.mp4') ||
+      video.video_url.endsWith('.mov') ||
+      video.video_url.endsWith('.webm')
+    ));
 
   // Helper to format embed url
   const getEmbedUrl = (url) => {
-    if (!url) return null;
+    if (!url || isDirectFile) return null;
     if (url.includes('youtube.com/watch?v=')) {
       const vid = url.split('v=')[1]?.split('&')[0];
       return `https://www.youtube.com/embed/${vid}?autoplay=0&rel=0`;
@@ -162,6 +171,14 @@ export const VideoDetail = ({ onOpenAuth }) => {
     if (url.includes('youtu.be/')) {
       const vid = url.split('youtu.be/')[1]?.split('?')[0];
       return `https://www.youtube.com/embed/${vid}?autoplay=0&rel=0`;
+    }
+    if (url.includes('vimeo.com/')) {
+      const vid = url.split('vimeo.com/')[1]?.split('?')[0];
+      return `https://player.vimeo.com/video/${vid}`;
+    }
+    if (url.includes('instagram.com/p/') || url.includes('instagram.com/reel/')) {
+      const cleanUrl = url.split('?')[0].replace(/\/$/, '');
+      return `${cleanUrl}/embed`;
     }
     return url;
   };
@@ -196,12 +213,13 @@ export const VideoDetail = ({ onOpenAuth }) => {
             <div className={`w-full rounded-2xl overflow-hidden bg-black border border-[#24221C] shadow-2xl ${
               isReel ? 'max-w-md mx-auto aspect-[9/16]' : 'aspect-video'
             }`}>
-              {video.video_url && video.video_url.endsWith('.mp4') ? (
+              {isDirectFile && video.video_url ? (
                 <video
                   src={video.video_url}
                   controls
+                  playsInline
                   poster={video.thumbnail_url}
-                  className="w-full h-full object-contain"
+                  className="w-full h-full object-contain bg-black"
                 />
               ) : embedUrl ? (
                 <iframe

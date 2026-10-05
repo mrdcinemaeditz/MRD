@@ -2,6 +2,25 @@ class VideoSerializer
   def self.render(video, current_user: nil, detailed: false)
     return nil unless video
 
+    helpers = Rails.application.routes.url_helpers
+    default_host = ENV.fetch("BACKEND_URL", "http://127.0.0.1:3001")
+
+    # Resolve Video URL
+    video_attachment = video.active_video_attachment
+    video_url = if video_attachment&.attached?
+      helpers.rails_blob_url(video_attachment, host: default_host)
+    else
+      video.video_url
+    end
+
+    # Resolve Thumbnail URL
+    thumb_attachment = video.active_thumbnail_attachment
+    thumbnail_url = if thumb_attachment&.attached?
+      helpers.rails_blob_url(thumb_attachment, host: default_host)
+    else
+      video.thumbnail_url
+    end
+
     data = {
       id: video.id,
       title: video.title,
@@ -9,9 +28,14 @@ class VideoSerializer
       description: video.description,
       aspect_ratio: video.aspect_ratio || "9:16",
       video_type: video.video_type || "upload",
-      video_url: video.media_file.attached? ? Rails.application.routes.url_helpers.rails_blob_url(video.media_file, only_path: true) : video.video_url,
-      thumbnail_url: video.thumbnail_image.attached? ? Rails.application.routes.url_helpers.rails_blob_url(video.thumbnail_image, only_path: true) : video.thumbnail_url,
+      source_type: video.source_type.presence || (video_attachment&.attached? ? "file" : "external"),
+      video_url: video_url,
+      thumbnail_url: thumbnail_url,
+      has_custom_video: video_attachment&.attached? || false,
+      has_custom_thumbnail: thumb_attachment&.attached? || false,
       duration: video.duration,
+      width: video.width,
+      height: video.height,
       views_count: video.views_count,
       likes_count: video.likes_count,
       comments_count: video.comments_count,

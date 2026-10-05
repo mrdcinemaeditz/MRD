@@ -8,6 +8,7 @@ RSpec.describe "Api::V1::Videos", type: :request do
       slug: "commercial-reel",
       category: category,
       status: "published",
+      video_url: "https://www.youtube.com/watch?v=dQw4w9WgXcQ",
       video_type: "youtube",
       aspect_ratio: "9:16",
       is_featured: true

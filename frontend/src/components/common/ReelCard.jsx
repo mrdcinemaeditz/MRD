@@ -57,6 +57,7 @@ export const ReelCard = ({ video, onSelect, onOpenAuth }) => {
           src={video.thumbnail_url || '/logo.png'}
           alt={video.title}
           loading="lazy"
+          onError={(e) => { e.currentTarget.src = '/logo.png'; }}
           className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
         />
 
