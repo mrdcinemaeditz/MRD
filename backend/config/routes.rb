@@ -56,7 +56,15 @@ Rails.application.routes.draw do
           end
         end
 
-        resources :enquiries, only: [:index, :show, :update, :destroy]
+        resources :enquiries, only: [:index, :show, :update, :destroy] do
+          collection do
+            get :unread_count
+            patch :mark_all_read
+          end
+          member do
+            patch :mark_read
+          end
+        end
         resources :brands
         resources :testimonials
 

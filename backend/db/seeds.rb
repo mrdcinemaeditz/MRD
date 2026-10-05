@@ -253,7 +253,6 @@ SiteSetting.set("contact_email", "contact@mrdcinemaeditz.com", "contact")
 SiteSetting.set("instagram_url", "https://instagram.com/mrdcinemaeditz", "social")
 SiteSetting.set("youtube_url", "https://youtube.com/@mrdcinemaeditz", "social")
 SiteSetting.set("twitter_url", "https://twitter.com/mrdcinemaeditz", "social")
-SiteSetting.set("about_story", "With over 7 years in high-end video post-production, I specialize in transforming raw captures into breathtaking visual narratives. From fast-paced viral Instagram reels with 10M+ views to full-scale commercial brand films, every frame is crafted with obsession over pacing, color grade, and sensory audio design.", "general")
 SiteSetting.set("media_kit_stats", {
   total_followers: "350K+",
   monthly_views: "18.5M+",
@@ -261,6 +260,8 @@ SiteSetting.set("media_kit_stats", {
   completed_projects: "420+",
   top_demographics: "18-34 Yrs (78% US, UK, IN)"
 }, "media_kit", "json")
+SiteSetting.set("whatsapp_alert_enabled", "false", "notifications", "boolean")
+SiteSetting.set("admin_notification_email", "admin@mrdcinemaeditz.com", "notifications")
 
 puts "✅ Site settings initialized"
 puts "🎉 Seeding finished successfully!"

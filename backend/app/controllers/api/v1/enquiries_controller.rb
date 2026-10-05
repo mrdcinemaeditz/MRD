@@ -2,6 +2,16 @@ module Api
   module V1
     class EnquiriesController < ApplicationController
       def create
+        # Honeypot spam protection: bots fill hidden fields like 'company_website' or 'honeypot'
+        if params[:honeypot].present? || params.dig(:enquiry, :company_website).present?
+          Rails.logger.info("[EnquiriesController] Honeypot triggered, discarding spam submission.")
+          render json: {
+            message: "Thank you for reaching out! We will get back to you shortly.",
+            enquiry: { name: params.dig(:enquiry, :name) }
+          }, status: :created
+          return
+        end
+
         enquiry = Enquiry.new(enquiry_params)
 
         if enquiry.save

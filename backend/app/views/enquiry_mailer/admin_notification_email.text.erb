@@ -1,0 +1,20 @@
+NEW ENQUIRY - MRD CINEMA EDITZ
+==================================================
+
+Client Name: <%= @enquiry.name %>
+<% if @enquiry.brand_name.present? %>Brand / Channel: <%= @enquiry.brand_name %><% end %>
+Email: <%= @enquiry.email %>
+<% if @enquiry.phone.present? %>Phone / WhatsApp: <%= @enquiry.phone %><% end %>
+Service Requested: <%= @enquiry.service_type || 'General' %>
+Estimated Budget: <%= @enquiry.budget_range || 'Not specified' %>
+Submitted At: <%= @enquiry.created_at.strftime("%B %d, %Y at %I:%M %p") %>
+
+PROJECT SCOPE & MESSAGE:
+--------------------------------------------------
+<%= @enquiry.message %>
+--------------------------------------------------
+
+View and manage this enquiry in the Admin Panel:
+<%= @admin_enquiry_url %>
+
+(You can reply directly to this email to contact the visitor)
