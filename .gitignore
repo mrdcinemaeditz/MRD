@@ -1,21 +1,46 @@
-# Root Git Ignore
+# Global & OS Files
 .DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
 *.log
 tmp/
 coverage/
 
-# Backend
-backend/.env
-backend/.env.local
+# Environment Files & Secrets (Never commit secrets)
+.env
+.env.*
+!.env.example
+backend/.env*
+!backend/.env.example
+frontend/.env*
+!frontend/.env.example
+*.key
+backend/config/master.key
+backend/config/credentials/*.key
+
+# Backend (Rails API)
 backend/log/*
+!backend/log/.keep
 backend/tmp/*
+!backend/tmp/.keep
+backend/tmp/pids/*
+!backend/tmp/pids/.keep
+backend/tmp/storage/*
+!backend/tmp/storage/.keep
 backend/storage/*
+!backend/storage/.keep
 backend/public/assets
+backend/public/packs
 backend/node_modules/
 backend/vendor/bundle
+backend/.bundle
 
-# Frontend
+# Frontend (React / Vite)
 frontend/node_modules/
 frontend/dist/
-frontend/.env
-frontend/.env.local
+frontend/dist-ssr/
+frontend/*.local
