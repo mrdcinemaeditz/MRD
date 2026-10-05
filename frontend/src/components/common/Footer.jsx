@@ -126,6 +126,7 @@ export const Footer = ({ settings }) => {
               </li>
               <li className="pt-2"><Link to="/privacy-policy" className="hover:text-zinc-200 transition-colors">Privacy Policy</Link></li>
               <li><Link to="/terms" className="hover:text-zinc-200 transition-colors">Terms of Service</Link></li>
+              <li className="pt-1"><Link to="/admin" className="text-zinc-500 hover:text-[#F5C869] text-xs font-mono-code transition-colors inline-flex items-center gap-1"><span>Admin Portal</span> &rarr;</Link></li>
             </ul>
           </div>
         </div>

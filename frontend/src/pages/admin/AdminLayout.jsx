@@ -5,6 +5,7 @@ import {
   LayoutDashboard, Video, FolderTree, MessageSquare, 
   Mail, Award, Settings, ArrowLeft, ShieldCheck, LogOut 
 } from 'lucide-react';
+import { AdminLogin } from './AdminLogin';
 
 export const AdminLayout = () => {
   const { user, isAdmin, loading, logout } = useAuth();
@@ -19,7 +20,7 @@ export const AdminLayout = () => {
   }
 
   if (!isAdmin) {
-    return <Navigate to="/" replace />;
+    return <AdminLogin />;
   }
 
   const menuItems = [
