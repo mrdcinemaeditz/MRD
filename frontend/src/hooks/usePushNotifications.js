@@ -212,6 +212,25 @@ export const usePushNotifications = ({ onNewNotification } = {}) => {
         setError('Firebase credentials are not configured on the backend server yet.');
         return false;
       }
+
+      // Spawn native browser notification popup for instant feedback
+      if (typeof window !== 'undefined' && 'Notification' in window && Notification.permission === 'granted') {
+        try {
+          const testPopup = new Notification('Test Notification - MRD CINEMA EDITZ', {
+            body: 'Push notification system is connected & operational on this device!',
+            icon: '/icons/icon-192x192.png',
+            badge: '/icons/icon-192x192.png',
+            tag: 'mrd-test-' + Date.now()
+          });
+          testPopup.onclick = () => {
+            window.focus();
+            testPopup.close();
+          };
+        } catch (popupErr) {
+          console.warn('[PushHook] Native notification popup fallback:', popupErr);
+        }
+      }
+
       setSuccessMessage(res.message || 'Test push notification sent! Check your device notifications.');
       return true;
     } catch (err) {

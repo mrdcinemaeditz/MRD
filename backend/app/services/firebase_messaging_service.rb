@@ -42,10 +42,14 @@ class FirebaseMessagingService
           title: title,
           body: body
         },
-        data: data.transform_values(&:to_s),
+        data: data.transform_values(&:to_s).merge({
+          "title" => title.to_s,
+          "body" => body.to_s,
+          "url" => full_url.to_s
+        }),
         webpush: {
           headers: {
-            Urgency: "high"
+            "Urgency" => "high"
           },
           fcm_options: {
             link: full_url
