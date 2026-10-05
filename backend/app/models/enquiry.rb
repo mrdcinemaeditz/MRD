@@ -28,5 +28,6 @@ class Enquiry < ApplicationRecord
   def enqueue_notifications
     SendEnquiryNotificationJob.perform_later(id)
     SendWhatsappAlertJob.perform_later(id)
+    SendFirebasePushJob.perform_later(id)
   end
 end
