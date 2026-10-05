@@ -19,7 +19,8 @@ export const Contact = ({ settings }) => {
     phone: '',
     budget_range: '$1,000 - $2,500',
     service_type: initialService,
-    message: ''
+    message: '',
+    company_website: '' // honeypot field
   });
 
   const [submitting, setSubmitting] = useState(false);
@@ -35,7 +36,7 @@ export const Contact = ({ settings }) => {
 
     try {
       const res = await enquiryService.submitEnquiry(formData);
-      success(res.message || 'Enquiry sent successfully!');
+      success('Thanks! We will contact you soon.');
       setSubmitted(true);
     } catch (err) {
       error(err.response?.data?.error || 'Failed to submit enquiry');
@@ -143,6 +144,18 @@ export const Contact = ({ settings }) => {
                 </div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-6">
+                  {/* Honeypot field for bot spam prevention */}
+                  <input
+                    type="text"
+                    name="company_website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={formData.company_website}
+                    onChange={(e) => setFormData({ ...formData, company_website: e.target.value })}
+                    className="hidden"
+                    aria-hidden="true"
+                  />
+
                   <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
                     <div>
                       <label className="block text-xs font-medium text-zinc-300 mb-2">Your Name *</label>

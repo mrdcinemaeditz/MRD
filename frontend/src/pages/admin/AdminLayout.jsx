@@ -6,6 +6,7 @@ import {
   Mail, Award, Settings, ArrowLeft, ShieldCheck, LogOut 
 } from 'lucide-react';
 import { AdminLogin } from './AdminLogin';
+import { NotificationBell } from '../../components/admin/NotificationBell';
 
 export const AdminLayout = () => {
   const { user, isAdmin, loading, logout } = useAuth();
@@ -97,10 +98,30 @@ export const AdminLayout = () => {
         </div>
       </aside>
 
-      {/* Content Area */}
-      <main className="flex-1 p-6 md:p-10 overflow-y-auto">
-        <Outlet />
-      </main>
+      {/* Main Content Area */}
+      <div className="flex-1 flex flex-col min-w-0">
+        {/* Top Header Bar with Notification Bell */}
+        <header className="h-16 px-6 md:px-10 border-b border-[#24221C] bg-[#0D0D11]/80 backdrop-blur-md flex items-center justify-between shrink-0">
+          <div className="flex items-center gap-3">
+            <span className="text-xs text-zinc-400">Welcome, <strong className="text-white">{user?.name || 'Director'}</strong></span>
+          </div>
+
+          <div className="flex items-center gap-4">
+            <NotificationBell />
+
+            <div className="w-8 h-8 rounded-full bg-gold-gradient p-[1px] flex items-center justify-center">
+              <div className="w-full h-full rounded-full bg-black flex items-center justify-center text-xs font-bold text-[#F5C869]">
+                {user?.name?.charAt(0) || 'A'}
+              </div>
+            </div>
+          </div>
+        </header>
+
+        {/* Content Body */}
+        <main className="flex-1 p-6 md:p-10 overflow-y-auto">
+          <Outlet />
+        </main>
+      </div>
     </div>
   );
 };
