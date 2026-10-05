@@ -1,0 +1,21 @@
+# Root Git Ignore
+.DS_Store
+*.log
+tmp/
+coverage/
+
+# Backend
+backend/.env
+backend/.env.local
+backend/log/*
+backend/tmp/*
+backend/storage/*
+backend/public/assets
+backend/node_modules/
+backend/vendor/bundle
+
+# Frontend
+frontend/node_modules/
+frontend/dist/
+frontend/.env
+frontend/.env.local
