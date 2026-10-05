@@ -21,6 +21,9 @@ frontend/.env*
 *.key
 backend/config/master.key
 backend/config/credentials/*.key
+*firebase*.json
+*service-account*.json
+backend/config/*firebase*.json
 
 # Backend (Rails API)
 backend/log/*
