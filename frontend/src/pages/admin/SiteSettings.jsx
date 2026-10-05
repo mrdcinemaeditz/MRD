@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from 'react';
 import { Settings, Save, Sparkles, MessageCircle, Share2, FileText, Globe, BellRing } from 'lucide-react';
 import { adminService } from '../../services/adminService';
 import { useToast } from '../../context/ToastContext';

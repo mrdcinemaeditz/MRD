@@ -22,21 +22,35 @@ export const isFirebaseConfigured = () => {
   );
 };
 
-// Initialize Firebase App
-export const app = getApps().length > 0 ? getApp() : initializeApp(firebaseConfig);
+// Safe lazy Firebase app initialization
+export const getFirebaseApp = () => {
+  if (!isFirebaseConfigured()) return null;
+  if (getApps().length > 0) return getApp();
+  try {
+    return initializeApp(firebaseConfig);
+  } catch (err) {
+    console.warn('[Firebase] App initialization error:', err);
+    return null;
+  }
+};
 
 let messagingInstance = null;
 
 export const getFirebaseMessaging = async () => {
   if (typeof window === 'undefined') return null;
+  if (!isFirebaseConfigured()) return null;
+
   const supported = await isSupported().catch(() => false);
   if (!supported) return null;
 
-  if (!messagingInstance && isFirebaseConfigured()) {
+  if (!messagingInstance) {
     try {
-      messagingInstance = getMessaging(app);
+      const app = getFirebaseApp();
+      if (app) {
+        messagingInstance = getMessaging(app);
+      }
     } catch (err) {
-      console.warn('[Firebase] Messaging initialization warning:', err);
+      console.warn('[Firebase] Messaging initialization error:', err);
       return null;
     }
   }
@@ -47,7 +61,7 @@ export const requestFCMToken = async (serviceWorkerRegistration) => {
   try {
     const messaging = await getFirebaseMessaging();
     if (!messaging) {
-      throw new Error('Firebase Messaging is not supported or not configured.');
+      throw new Error('Firebase Messaging is not supported or credentials are not configured yet.');
     }
 
     if (!vapidKey) {
@@ -70,9 +84,14 @@ export const onForegroundMessage = async (callback) => {
   const messaging = await getFirebaseMessaging();
   if (!messaging) return () => {};
 
-  return onMessage(messaging, (payload) => {
-    if (callback) {
-      callback(payload);
-    }
-  });
+  try {
+    return onMessage(messaging, (payload) => {
+      if (callback) {
+        callback(payload);
+      }
+    });
+  } catch (err) {
+    console.warn('[Firebase] Failed to attach onMessage listener:', err);
+    return () => {};
+  }
 };
