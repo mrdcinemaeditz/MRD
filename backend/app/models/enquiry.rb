@@ -7,5 +7,26 @@ class Enquiry < ApplicationRecord
   validates :status, inclusion: { in: STATUSES }
 
   scope :recent, -> { order(created_at: :desc) }
-  scope :unread, -> { where(status: "new") }
+  scope :unread, -> { where(read: false) }
+  scope :read_items, -> { where(read: true) }
+
+  after_create_commit :enqueue_notifications
+
+  def mark_as_read!
+    return true if read?
+
+    update_columns(
+      read: true,
+      read_at: Time.current,
+      status: (status == "new" ? "read" : status),
+      updated_at: Time.current
+    )
+  end
+
+  private
+
+  def enqueue_notifications
+    SendEnquiryNotificationJob.perform_later(id)
+    SendWhatsappAlertJob.perform_later(id)
+  end
 end

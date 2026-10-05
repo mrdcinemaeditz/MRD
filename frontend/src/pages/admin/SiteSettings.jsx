@@ -117,6 +117,32 @@ export const SiteSettings = () => {
           </div>
         </div>
 
+        {/* Inbound Notifications & Alert Integrations */}
+        <div className="p-6 rounded-3xl bg-[#121216] border border-[#24221C] space-y-4">
+          <h3 className="font-heading font-bold text-sm text-white flex items-center gap-2">
+            <Sparkles className="w-4 h-4 text-[#D4A346]" />
+            <span>Enquiry Notification Alerts</span>
+          </h3>
+
+          <div className="p-4 rounded-2xl bg-zinc-900/60 border border-zinc-800 flex items-center justify-between gap-4">
+            <div>
+              <span className="text-xs font-semibold text-white block">Send WhatsApp alert on new enquiry</span>
+              <p className="text-[11px] text-zinc-400 mt-0.5">
+                Automatically dispatch instant WhatsApp notification to your phone using Twilio when a visitor submits the contact form.
+              </p>
+            </div>
+            <label className="relative inline-flex items-center cursor-pointer shrink-0">
+              <input
+                type="checkbox"
+                checked={settings.whatsapp_alert_enabled === 'true' || settings.whatsapp_alert_enabled === true}
+                onChange={(e) => setSettings({ ...settings, whatsapp_alert_enabled: e.target.checked ? 'true' : 'false' })}
+                className="sr-only peer"
+              />
+              <div className="w-11 h-6 bg-zinc-800 peer-focus:outline-none rounded-full peer peer-checked:after:translate-x-full peer-checked:after:border-white after:content-[''] after:absolute after:top-[2px] after:left-[2px] after:bg-white after:border-zinc-300 after:border after:rounded-full after:h-5 after:w-5 after:transition-all peer-checked:bg-[#D4A346]" />
+            </label>
+          </div>
+        </div>
+
         {/* Social Links */}
         <div className="p-6 rounded-3xl bg-[#121216] border border-[#24221C] space-y-4">
           <h3 className="font-heading font-bold text-sm text-white flex items-center gap-2">

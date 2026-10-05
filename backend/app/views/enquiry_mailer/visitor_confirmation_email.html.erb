@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0c0c0e; color: #f4f4f5; margin: 0; padding: 20px; }
+      .container { max-width: 600px; margin: 0 auto; background-color: #141418; border: 1px solid #d4a346; border-radius: 16px; padding: 32px; }
+      .header { text-align: center; border-bottom: 1px solid #27272a; padding-bottom: 20px; margin-bottom: 24px; }
+      .brand-title { color: #d4a346; font-size: 20px; font-weight: bold; letter-spacing: 2px; }
+      .message-box { background-color: #1c1c22; border: 1px solid #27272a; border-radius: 12px; padding: 16px; margin: 20px 0; color: #a1a1aa; line-height: 1.6; font-size: 14px; }
+      .footer { text-align: center; font-size: 11px; color: #71717a; margin-top: 30px; border-top: 1px solid #27272a; padding-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="brand-title">MRD CINEMA EDITZ</div>
+        <p style="color: #a1a1aa; font-size: 13px; margin: 6px 0 0 0;">Project Proposal Confirmation</p>
+      </div>
+
+      <h2 style="color: #ffffff; font-size: 18px; margin-bottom: 12px;">Hi <%= @enquiry.name %>,</h2>
+
+      <p style="color: #d4d4d8; font-size: 14px; line-height: 1.6;">
+        Thanks for reaching out! We have successfully received your project inquiry for <strong><%= @enquiry.service_type || 'Video Production' %></strong>.
+      </p>
+
+      <p style="color: #d4d4d8; font-size: 14px; line-height: 1.6;">
+        We review every inquiry carefully and will follow up with custom scope recommendations, quotation details, and timeline availability within <strong>24 hours</strong>.
+      </p>
+
+      <div class="message-box">
+        <strong style="color: #ffffff; display: block; margin-bottom: 6px;">Your submitted scope summary:</strong>
+        "<%= @enquiry.message %>"
+      </div>
+
+      <p style="color: #a1a1aa; font-size: 13px; line-height: 1.5;">
+        Have an urgent deadline or need immediate answers? You can reach us directly on WhatsApp anytime.
+      </p>
+
+      <div class="footer">
+        © <%= Time.current.year %> MRD CINEMA EDITZ • Master-class video editing & cinematic post-production.
+      </div>
+    </div>
+  </body>
+</html>

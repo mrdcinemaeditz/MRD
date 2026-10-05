@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content="text/html; charset=UTF-8" http-equiv="Content-Type" />
+    <style>
+      body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; background-color: #0c0c0e; color: #f4f4f5; margin: 0; padding: 20px; }
+      .container { max-width: 600px; margin: 0 auto; background-color: #141418; border: 1px solid #d4a346; border-radius: 16px; padding: 32px; }
+      .header { text-align: center; border-bottom: 1px solid #27272a; padding-bottom: 20px; margin-bottom: 24px; }
+      .brand-title { color: #d4a346; font-size: 20px; font-weight: bold; letter-spacing: 2px; }
+      .badge { display: inline-block; background-color: #22c55e20; color: #4ade80; border: 1px solid #22c55e40; padding: 4px 10px; border-radius: 6px; font-size: 11px; font-weight: bold; text-transform: uppercase; }
+      .field-group { margin-bottom: 16px; }
+      .field-label { font-size: 12px; color: #a1a1aa; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 4px; }
+      .field-value { font-size: 15px; color: #ffffff; font-weight: 500; }
+      .message-box { background-color: #1c1c22; border: 1px solid #27272a; border-radius: 12px; padding: 16px; margin: 20px 0; color: #e4e4e7; line-height: 1.6; white-space: pre-wrap; font-size: 14px; }
+      .button { display: inline-block; background: linear-gradient(135deg, #f5c869, #d4a346); color: #000000; padding: 12px 28px; border-radius: 8px; font-weight: bold; text-decoration: none; font-size: 13px; text-transform: uppercase; letter-spacing: 1px; margin-top: 20px; }
+      .footer { text-align: center; font-size: 11px; color: #71717a; margin-top: 30px; border-top: 1px solid #27272a; padding-top: 16px; }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="header">
+        <div class="brand-title">MRD CINEMA EDITZ</div>
+        <p style="color: #a1a1aa; font-size: 13px; margin: 6px 0 0 0;">New Inbound Project Proposal</p>
+      </div>
+
+      <div style="margin-bottom: 20px;">
+        <span class="badge">New Enquiry</span>
+        <span style="color: #71717a; font-size: 12px; float: right;"><%= @enquiry.created_at.strftime("%B %d, %Y at %I:%M %p") %></span>
+      </div>
+
+      <div class="field-group">
+        <div class="field-label">Client Name</div>
+        <div class="field-value"><%= @enquiry.name %></div>
+      </div>
+
+      <% if @enquiry.brand_name.present? %>
+        <div class="field-group">
+          <div class="field-label">Brand / Channel</div>
+          <div class="field-value"><%= @enquiry.brand_name %></div>
+        </div>
+      <% end %>
+
+      <div class="field-group">
+        <div class="field-label">Email Address</div>
+        <div class="field-value"><a href="mailto:<%= @enquiry.email %>" style="color: #f5c869;"><%= @enquiry.email %></a></div>
+      </div>
+
+      <% if @enquiry.phone.present? %>
+        <div class="field-group">
+          <div class="field-label">Phone / WhatsApp</div>
+          <div class="field-value"><%= @enquiry.phone %></div>
+        </div>
+      <% end %>
+
+      <div class="field-group">
+        <div class="field-label">Service Requested & Budget</div>
+        <div class="field-value"><%= @enquiry.service_type || 'General Video Production' %> • <strong style="color: #f5c869;"><%= @enquiry.budget_range || 'Not specified' %></strong></div>
+      </div>
+
+      <div class="field-label" style="margin-top: 24px;">Project Scope & Message:</div>
+      <div class="message-box"><%= @enquiry.message %></div>
+
+      <div style="text-align: center;">
+        <a href="<%= @admin_enquiry_url %>" class="button">Open in Admin Console</a>
+      </div>
+
+      <div class="footer">
+        Reply to this email directly to respond to <%= @enquiry.name %> (<%= @enquiry.email %>).
+      </div>
+    </div>
+  </body>
+</html>

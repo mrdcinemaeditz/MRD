@@ -96,6 +96,21 @@ export const adminService = {
     return response.data;
   },
 
+  getUnreadEnquiriesCount: async () => {
+    const response = await api.get('/admin/enquiries/unread_count');
+    return response.data;
+  },
+
+  markEnquiryRead: async (id) => {
+    const response = await api.patch(`/admin/enquiries/${id}/mark_read`);
+    return response.data;
+  },
+
+  markAllEnquiriesRead: async () => {
+    const response = await api.patch('/admin/enquiries/mark_all_read');
+    return response.data;
+  },
+
   getEnquiry: async (id) => {
     const response = await api.get(`/admin/enquiries/${id}`);
     return response.data;

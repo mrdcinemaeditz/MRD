@@ -12,6 +12,8 @@ class EnquirySerializer
       service_type: enquiry.service_type,
       message: enquiry.message,
       status: enquiry.status,
+      read: enquiry.read,
+      read_at: enquiry.read_at,
       created_at: enquiry.created_at
     }
   end
