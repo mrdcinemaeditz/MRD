@@ -11,7 +11,7 @@ export const PrivacyPolicy = () => {
 
       <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <div className="p-8 sm:p-12 rounded-3xl bg-[#121216] border border-[#24221C] space-y-6">
-          <div className="flex items-center gap-3 text-[#F5C869]">
+          <div className="flex items-center gap-3 text-red-500">
             <Shield className="w-8 h-8" />
             <h1 className="font-cinematic font-bold text-2xl sm:text-3xl text-white">PRIVACY POLICY</h1>
           </div>
@@ -35,7 +35,7 @@ export const PrivacyPolicy = () => {
           <section className="space-y-3 text-zinc-300 text-sm leading-relaxed">
             <h2 className="font-heading font-bold text-base text-white">3. Contact</h2>
             <p>
-              For questions regarding this privacy policy, please contact us at <a href="mailto:contact@mrdcinemaeditz.com" className="text-[#F5C869]">contact@mrdcinemaeditz.com</a>.
+              For questions regarding this privacy policy, please contact us at <a href="mailto:contact@mrdcinemaeditz.com" className="text-red-400 hover:underline">contact@mrdcinemaeditz.com</a>.
             </p>
           </section>
         </div>

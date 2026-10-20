@@ -11,7 +11,7 @@ export const Terms = () => {
 
       <div className="min-h-screen pt-28 pb-20 px-4 sm:px-6 lg:px-8 max-w-4xl mx-auto">
         <div className="p-8 sm:p-12 rounded-3xl bg-[#121216] border border-[#24221C] space-y-6">
-          <div className="flex items-center gap-3 text-[#F5C869]">
+          <div className="flex items-center gap-3 text-red-500">
             <FileText className="w-8 h-8" />
             <h1 className="font-cinematic font-bold text-2xl sm:text-3xl text-white">TERMS OF SERVICE</h1>
           </div>

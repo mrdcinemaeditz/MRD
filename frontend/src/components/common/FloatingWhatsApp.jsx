@@ -2,17 +2,18 @@ import React from 'react';
 import { MessageCircle } from 'lucide-react';
 
 export const FloatingWhatsApp = ({ settings }) => {
-  const number = (settings?.whatsapp_number || '+919876543210').replace(/[^0-9]/g, '');
+  let cleanNumber = (settings?.whatsapp_number || '7470678511').replace(/[^0-9]/g, '');
+  if (cleanNumber.length === 10) cleanNumber = '91' + cleanNumber;
   const message = encodeURIComponent(
-    settings?.whatsapp_default_message || 'Hi MRD! I would like to discuss a video project.'
+    settings?.whatsapp_default_message || 'Hi MRD Cinema Editz! I would like to book a video shoot / reel package.'
   );
 
-  const whatsappUrl = `https://wa.me/${number}?text=${message}`;
+  const whatsappUrl = `https://wa.me/${cleanNumber}?text=${message}`;
 
   return (
     <aside
       aria-label="Contact options"
-      className="fixed bottom-6 left-6 z-40 group flex items-center gap-3"
+      className="hidden md:flex fixed bottom-6 left-6 z-40 group items-center gap-3"
     >
       <a
         href={whatsappUrl}
@@ -27,7 +28,7 @@ export const FloatingWhatsApp = ({ settings }) => {
       </a>
 
       {/* Hover Tooltip */}
-      <span className="hidden sm:inline-block px-3 py-1.5 rounded-xl bg-[#121216]/95 border border-[#D4A346]/40 text-xs font-medium text-white shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none backdrop-blur-md">
+      <span className="hidden sm:inline-block px-3 py-1.5 rounded-xl bg-[#121216]/95 border border-red-500/40 text-xs font-medium text-white shadow-xl opacity-0 group-hover:opacity-100 transition-opacity pointer-events-none backdrop-blur-md">
         Chat with MRD on WhatsApp
       </span>
     </aside>

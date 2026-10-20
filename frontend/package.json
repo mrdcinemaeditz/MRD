@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "tunnel": "ngrok http 5173",
     "build": "vite build",
     "lint": "oxlint",
     "preview": "vite preview"
@@ -12,6 +13,8 @@
   "dependencies": {
     "@rails/activestorage": "^8.1.400",
     "@tailwindcss/vite": "^4.3.3",
+    "@vimeo/player": "^2.30.4",
+    "aos": "^2.3.4",
     "axios": "^1.20.0",
     "clsx": "^2.1.1",
     "firebase": "^12.19.0",

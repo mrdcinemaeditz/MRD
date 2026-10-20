@@ -20,9 +20,10 @@
     --text-secondary: #A1A1AA;
     --text-muted: #71717A;
 
-    --font-cinzel: 'Cinzel', serif;
+    --font-brand: 'Montserrat', sans-serif;
     --font-outfit: 'Outfit', sans-serif;
-    --font-body: 'Plus Jakarta Sans', sans-serif;
+    --font-cinematic: 'Montserrat', 'Outfit', sans-serif;
+    --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
     --font-mono: 'JetBrains Mono', monospace;
   }
 
@@ -46,20 +47,29 @@
     --text-muted: #71717A;
   }
 
-  body {
+  html, body {
     background-color: var(--bg-primary);
     color: var(--text-primary);
     font-family: var(--font-body);
-    overflow-x: hidden;
+    overflow-x: clip;
+    max-width: 100%;
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
 
   h1, h2, h3, .font-heading {
     font-family: var(--font-outfit);
+    letter-spacing: -0.02em;
+  }
+
+  .font-brand {
+    font-family: var(--font-brand);
   }
 
   .font-cinematic {
-    font-family: var(--font-cinzel);
+    font-family: var(--font-cinematic);
+    letter-spacing: -0.01em;
   }
 
   .font-mono-code {
@@ -145,3 +155,398 @@
 .aspect-cinema {
   aspect-ratio: 16 / 9;
 }
+
+/* ========================================================
+   CRIMSON NEON RED & 3D METALLIC CHROME THEME (USER SIDE)
+   ======================================================== */
+.text-red-gradient {
+  background: linear-gradient(135deg, #FFFFFF 0%, #FF4D5A 35%, #E50914 70%, #990000 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.text-chrome-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #F1F5F9 30%, #CBD5E1 65%, #64748B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 8px rgba(255, 30, 39, 0.3));
+}
+
+.text-red-glow {
+  text-shadow: 0 0 20px rgba(255, 30, 39, 0.7), 0 0 40px rgba(229, 9, 20, 0.4);
+}
+
+.bg-red-gradient {
+  background: linear-gradient(135deg, #FF3344 0%, #E50914 50%, #8B0000 100%);
+}
+
+.bg-red-gradient-hover:hover {
+  background: linear-gradient(135deg, #FF5566 0%, #FF1E27 50%, #A30000 100%);
+  box-shadow: 0 0 30px rgba(255, 30, 39, 0.6);
+}
+
+.bg-chrome-gradient {
+  background: linear-gradient(180deg, #FFFFFF 0%, #E2E8F0 35%, #94A3B8 75%, #475569 100%);
+}
+
+.border-red-glow {
+  border-color: rgba(229, 9, 20, 0.5);
+  box-shadow: 0 0 20px rgba(229, 9, 20, 0.35);
+}
+
+.hover-red-lift {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.hover-red-lift:hover {
+  transform: translateY(-4px);
+  border-color: rgba(255, 30, 39, 0.7);
+  box-shadow: 0 12px 30px -10px rgba(255, 30, 39, 0.45);
+}
+
+.ambient-red-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.22) 0%, rgba(3, 3, 5, 0) 70%);
+}
+
+.neon-red-halo {
+  box-shadow: 0 0 30px rgba(255, 30, 39, 0.55), inset 0 0 20px rgba(255, 30, 39, 0.3);
+}
+
+.soundwave-line {
+  background: linear-gradient(90deg, transparent, #FF1E27, #FFFFFF, #FF1E27, transparent);
+  height: 2px;
+}
+
+/* Brand Typography */
+.brand-mrd-text {
+  font-family: var(--font-brand);
+  font-weight: 900;
+  letter-spacing: 0.05em;
+  background: linear-gradient(180deg, #FFFFFF 0%, #F8FAFC 20%, #CBD5E1 60%, #64748B 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  filter: drop-shadow(0 2px 12px rgba(255, 30, 39, 0.45));
+}
+
+.brand-editz-sub {
+  font-family: var(--font-brand);
+  font-weight: 800;
+  letter-spacing: 0.32em;
+}
+
+/* Base Theme Colors */
+.bg-theme-base {
+  background-color: #030305;
+}
+.text-theme-base {
+  color: #F7F7F8;
+}
+
+/* ========================================================
+   LIGHT THEME ENGINE (SCOPED STRICTLY TO .public-layout)
+   ======================================================== */
+html.light .public-layout,
+html.light .public-layout.bg-theme-base {
+  background-color: #F8F9FA !important;
+  color: #0F172A !important;
+}
+
+/* Page Section Backgrounds in Light Mode */
+html.light .public-layout section,
+html.light .public-layout .bg-\[\#030305\],
+html.light .public-layout [class*="bg-[#030305]"],
+html.light .public-layout .bg-\[\#060608\],
+html.light .public-layout [class*="bg-[#060608]"],
+html.light .public-layout .bg-\[\#040406\],
+html.light .public-layout [class*="bg-[#040406]"],
+html.light .public-layout .bg-\[\#050507\],
+html.light .public-layout [class*="bg-[#050507]"],
+html.light .public-layout .bg-\[\#06060A\],
+html.light .public-layout [class*="bg-[#06060A]"],
+html.light .public-layout .bg-\[\#0A0A0C\],
+html.light .public-layout [class*="bg-[#0A0A0C]"] {
+  background-color: #F8F9FA !important;
+}
+
+/* Ambient Glow in Light Mode */
+html.light .public-layout .ambient-red-glow {
+  background: radial-gradient(circle at 50% 0%, rgba(229, 9, 20, 0.08) 0%, rgba(248, 249, 250, 0) 70%) !important;
+}
+
+/* Cards, Surface Panels, Modals & Dropdowns in Light Mode */
+html.light .public-layout .bg-\[\#0A0A0E\],
+html.light .public-layout [class*="bg-[#0A0A0E]"],
+html.light .public-layout .bg-\[\#0B0B0F\],
+html.light .public-layout [class*="bg-[#0B0B0F]"],
+html.light .public-layout .bg-\[\#0B0B0E\],
+html.light .public-layout [class*="bg-[#0B0B0E]"],
+html.light .public-layout .bg-\[\#121216\],
+html.light .public-layout [class*="bg-[#121216]"],
+html.light .public-layout .bg-\[\#0D0D11\],
+html.light .public-layout [class*="bg-[#0D0D11]"],
+html.light .public-layout .bg-\[\#09090D\],
+html.light .public-layout [class*="bg-[#09090D]"],
+html.light .public-layout .bg-\[\#0E0E14\],
+html.light .public-layout [class*="bg-[#0E0E14]"],
+html.light .public-layout .bg-\[\#1A1A22\],
+html.light .public-layout [class*="bg-[#1A1A22]"],
+html.light .public-layout .bg-zinc-950,
+html.light .public-layout [class*="bg-zinc-950"],
+html.light .public-layout .bg-zinc-900,
+html.light .public-layout [class*="bg-zinc-900"] {
+  background-color: #FFFFFF !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.06), 0 2px 6px -1px rgba(15, 23, 42, 0.04) !important;
+}
+
+/* Subtle Cards & Highlights */
+html.light .public-layout .bg-zinc-800,
+html.light .public-layout [class*="bg-zinc-800"] {
+  background-color: #F1F5F9 !important;
+  color: #1E293B !important;
+}
+
+/* Borders in Light Mode */
+html.light .public-layout .border-zinc-800,
+html.light .public-layout [class*="border-zinc-800"],
+html.light .public-layout .border-zinc-700,
+html.light .public-layout [class*="border-zinc-700"],
+html.light .public-layout .border-zinc-900,
+html.light .public-layout [class*="border-zinc-900"],
+html.light .public-layout .border-\[\#24221C\],
+html.light .public-layout [class*="border-[#24221C]"],
+html.light .public-layout .border-red-950\/40,
+html.light .public-layout .border-red-900\/40,
+html.light .public-layout .border-red-900\/30 {
+  border-color: #E2E8F0 !important;
+}
+
+/* Typography Inversions */
+html.light .public-layout h1:not([class*="text-"]):not([class*="brand-mrd"]),
+html.light .public-layout h2:not([class*="text-"]):not([class*="brand-mrd"]),
+html.light .public-layout h3:not([class*="text-"]):not([class*="brand-mrd"]),
+html.light .public-layout h4:not([class*="text-"]):not([class*="brand-mrd"]),
+html.light .public-layout .text-white {
+  color: #0F172A !important;
+}
+
+html.light .public-layout .text-zinc-300 {
+  color: #334155 !important;
+}
+
+html.light .public-layout .text-zinc-400 {
+  color: #64748B !important;
+}
+
+html.light .public-layout .text-zinc-500 {
+  color: #94A3B8 !important;
+}
+
+/* Preserve White text inside Red Gradient buttons & pills */
+html.light .public-layout .bg-red-gradient,
+html.light .public-layout .bg-red-gradient *,
+html.light .public-layout [class*="bg-red-gradient"] *,
+html.light .public-layout [class*="bg-red-gradient"] {
+  color: #FFFFFF !important;
+}
+
+/* Preserve Video Card thumbnail overlays text */
+html.light .public-layout .aspect-\[9\/16\] *,
+html.light .public-layout .aspect-video * {
+  color: #FFFFFF !important;
+}
+html.light .public-layout .aspect-\[9\/16\] .text-red-400,
+html.light .public-layout .aspect-video .text-red-400,
+html.light .public-layout .aspect-\[9\/16\] .text-red-500,
+html.light .public-layout .aspect-video .text-red-500 {
+  color: #FF4D5A !important;
+}
+
+/* Header & Top Bar in Light Mode */
+html.light .public-layout header {
+  background-color: rgba(255, 255, 255, 0.95) !important;
+  border-bottom-color: #E2E8F0 !important;
+  box-shadow: 0 4px 20px -2px rgba(15, 23, 42, 0.05) !important;
+}
+
+html.light .public-layout header .brand-mrd-text {
+  background: linear-gradient(180deg, #0F172A 0%, #334155 50%, #475569 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 2px 8px rgba(229, 9, 20, 0.25)) !important;
+}
+
+html.light .public-layout header .brand-editz-sub .text-white {
+  color: #0F172A !important;
+}
+
+html.light .public-layout header nav a:not([class*="bg-gradient"]) {
+  color: #475569 !important;
+}
+html.light .public-layout header nav a:not([class*="bg-gradient"]):hover {
+  color: #0F172A !important;
+  background-color: #F1F5F9 !important;
+}
+
+/* Chrome Headline in Light Mode */
+html.light .public-layout .text-chrome-gradient {
+  background: linear-gradient(180deg, #0F172A 0%, #1E293B 40%, #334155 70%, #475569 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  filter: drop-shadow(0 2px 8px rgba(229, 9, 20, 0.15)) !important;
+}
+
+/* Inputs, Selects, & Textareas in Light Mode */
+html.light .public-layout input:not([type="checkbox"]):not([type="radio"]),
+html.light .public-layout textarea,
+html.light .public-layout select {
+  background-color: #F8FAFC !important;
+  border-color: #CBD5E1 !important;
+  color: #0F172A !important;
+}
+html.light .public-layout input::placeholder,
+html.light .public-layout textarea::placeholder {
+  color: #94A3B8 !important;
+}
+
+/* Mobile Quick Bar in Light Mode */
+html.light .public-layout aside[aria-label="Mobile quick actions"] {
+  background-color: rgba(255, 255, 255, 0.96) !important;
+  border-top-color: #E2E8F0 !important;
+  box-shadow: 0 -4px 25px rgba(15, 23, 42, 0.08) !important;
+}
+html.light .public-layout aside[aria-label="Mobile quick actions"] .bg-zinc-900\/90 {
+  background-color: #F1F5F9 !important;
+  border-color: #CBD5E1 !important;
+}
+html.light .public-layout aside[aria-label="Mobile quick actions"] span {
+  color: #1E293B !important;
+}
+html.light .public-layout aside[aria-label="Mobile quick actions"] a[href*="contact"] span {
+  color: #FFFFFF !important;
+}
+
+/* Mobile Drawer in Light Mode */
+html.light .public-layout .animate-slide-down {
+  background-color: rgba(255, 255, 255, 0.98) !important;
+  border-bottom-color: #E2E8F0 !important;
+  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.08) !important;
+}
+html.light .public-layout .animate-slide-down nav a:not([class*="bg-red-gradient"]) {
+  color: #334155 !important;
+}
+html.light .public-layout .animate-slide-down nav a:not([class*="bg-red-gradient"]):hover {
+  background-color: #F1F5F9 !important;
+  color: #0F172A !important;
+}
+
+/* Footer in Light Mode */
+html.light .public-layout footer {
+  background-color: #F1F5F9 !important;
+  border-top-color: #E2E8F0 !important;
+}
+html.light .public-layout footer .brand-mrd-text {
+  background: linear-gradient(180deg, #0F172A 0%, #334155 50%, #475569 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+}
+html.light .public-layout footer .brand-editz-sub .text-white {
+  color: #0F172A !important;
+}
+
+/* ========================================================
+   AOS (ANIMATE ON SCROLL) CUSTOMIZATIONS
+   Smooth, subtle slide-in animations (Animate only once)
+   ======================================================== */
+[data-aos] {
+  pointer-events: auto !important;
+}
+
+/* Mobile small offset: 30px to prevent horizontal page overflow */
+html:not(.no-js) [data-aos="fade-right"] {
+  transform: translate3d(-30px, 0, 0);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+@media (min-width: 640px) {
+  /* Desktop smooth subtle offset: 48px */
+  html:not(.no-js) [data-aos="fade-right"] {
+    transform: translate3d(-48px, 0, 0);
+  }
+}
+
+html:not(.no-js) [data-aos="fade-left"] {
+  transform: translate3d(30px, 0, 0);
+  opacity: 0;
+  transition-property: transform, opacity;
+}
+
+@media (min-width: 640px) {
+  /* Desktop smooth subtle offset: 48px */
+  html:not(.no-js) [data-aos="fade-left"] {
+    transform: translate3d(48px, 0, 0);
+  }
+}
+
+html:not(.no-js) [data-aos].aos-animate {
+  transform: translate3d(0, 0, 0) !important;
+  opacity: 1 !important;
+}
+
+/* Fallback: Elements must NEVER stay at opacity 0 if JS or AOS fails */
+html.no-js [data-aos],
+body.no-js [data-aos],
+noscript [data-aos] {
+  opacity: 1 !important;
+  transform: none !important;
+}
+
+/* Respect prefers-reduced-motion: No animation, immediate visibility */
+@media (prefers-reduced-motion: reduce) {
+  [data-aos],
+  html:not(.no-js) [data-aos="fade-right"],
+  html:not(.no-js) [data-aos="fade-left"],
+  html:not(.no-js) [data-aos].aos-animate {
+    opacity: 1 !important;
+    transform: none !important;
+    transition: none !important;
+  }
+}
+
+/* ========================================================
+   HORIZONTAL VIDEO SLIDER
+   Smooth scrolling, non-collapsing flex cards, scroll-snap
+   ======================================================== */
+.slider-track {
+  display: flex;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  -webkit-overflow-scrolling: touch;
+  scroll-behavior: smooth;
+  scrollbar-width: thin;
+}
+
+.slider-track::-webkit-scrollbar {
+  height: 6px;
+}
+
+.slider-track::-webkit-scrollbar-track {
+  background: rgba(18, 18, 22, 0.4);
+  border-radius: 9999px;
+}
+
+.slider-track::-webkit-scrollbar-thumb {
+  background: rgba(255, 30, 39, 0.5);
+  border-radius: 9999px;
+}
+
+.slider-track::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 30, 39, 0.9);
+}
+
+.slider-item {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  min-width: 0;
+}
+
+

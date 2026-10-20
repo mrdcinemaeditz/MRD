@@ -39,14 +39,14 @@ export const ToastProvider = ({ children }) => {
               key={toast.id}
               className={`pointer-events-auto flex items-center justify-between p-4 rounded-xl border backdrop-blur-xl shadow-2xl transition-all duration-300 animate-slide-up ${
                 isSuccess
-                  ? 'bg-[#121216]/95 border-[#D4A346]/40 text-[#F5C869]'
+                  ? 'bg-[#121216]/95 border-emerald-500/40 text-emerald-400'
                   : isError
                   ? 'bg-[#181012]/95 border-red-500/40 text-red-400'
                   : 'bg-[#121216]/95 border-zinc-700/50 text-zinc-200'
               }`}
             >
               <div className="flex items-center gap-3">
-                {isSuccess && <CheckCircle2 className="w-5 h-5 text-[#F5C869] shrink-0" />}
+                {isSuccess && <CheckCircle2 className="w-5 h-5 text-emerald-400 shrink-0" />}
                 {isError && <AlertCircle className="w-5 h-5 text-red-400 shrink-0" />}
                 {!isSuccess && !isError && <Info className="w-5 h-5 text-zinc-400 shrink-0" />}
                 <p className="text-sm font-medium text-white">{toast.message}</p>
