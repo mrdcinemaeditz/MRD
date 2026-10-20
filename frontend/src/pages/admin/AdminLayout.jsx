@@ -12,6 +12,19 @@ export const AdminLayout = () => {
   const { user, isAdmin, loading, logout } = useAuth();
   const location = useLocation();
 
+  React.useEffect(() => {
+    // Admin panel is strictly a dark studio interface
+    const root = document.documentElement;
+    root.classList.remove('light');
+    root.classList.add('dark');
+
+    return () => {
+      const savedTheme = localStorage.getItem('mrd_theme') || 'dark';
+      root.classList.remove('dark', 'light');
+      root.classList.add(savedTheme);
+    };
+  }, []);
+
   if (loading) {
     return (
       <div className="min-h-screen bg-[#0A0A0C] flex items-center justify-center">
@@ -27,11 +40,10 @@ export const AdminLayout = () => {
   const menuItems = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
     { name: 'Videos & Reels', path: '/admin/videos', icon: Video },
-    { name: 'Categories', path: '/admin/categories', icon: FolderTree },
+    { name: 'Topics & Categories', path: '/admin/categories', icon: FolderTree },
     { name: 'Comments & Moderation', path: '/admin/comments', icon: MessageSquare },
     { name: 'Client Enquiries', path: '/admin/enquiries', icon: Mail },
-    { name: 'Brands & Reviews', path: '/admin/brands-testimonials', icon: Award },
-    { name: 'Site Settings', path: '/admin/settings', icon: Settings },
+    { name: 'Settings & Packages', path: '/admin/settings', icon: Settings },
   ];
 
   const isActive = (path) => {

@@ -1,5 +1,5 @@
 class SiteSetting < ApplicationRecord
-  CATEGORIES = %w[general contact social hero media_kit seo notifications].freeze
+  CATEGORIES = %w[general contact social hero media_kit seo notifications pricing].freeze
 
   validates :key, presence: true, uniqueness: true
 

@@ -29,8 +29,10 @@ module Api
 
         def determine_category(key)
           k = key.to_s
-          if k.start_with?("whatsapp_", "email_", "phone_")
+          if k.start_with?("whatsapp_", "email_", "phone_", "location", "contact_")
             "contact"
+          elsif k.start_with?("reel_packages", "pricing_", "starting_price")
+            "pricing"
           elsif k.start_with?("social_")
             "social"
           elsif k.start_with?("hero_")

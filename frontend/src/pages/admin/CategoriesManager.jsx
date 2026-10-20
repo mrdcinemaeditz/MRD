@@ -81,8 +81,8 @@ export const CategoriesManager = () => {
     <div className="space-y-6 max-w-5xl">
       <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
         <div>
-          <h1 className="font-cinematic font-bold text-2xl sm:text-3xl text-white">PORTFOLIO CATEGORIES</h1>
-          <p className="text-xs text-zinc-400 mt-1">Organize your reels, advertisements, and filmmaking genres.</p>
+          <h1 className="font-cinematic font-bold text-2xl sm:text-3xl text-white">PORTFOLIO TOPICS & CATEGORIES</h1>
+          <p className="text-xs text-zinc-400 mt-1">Manage the shoot topics (Weddings, Car & Bike Delivery, Brand Shoots, etc.), add new topics, edit descriptions, or remove categories.</p>
         </div>
 
         <button

@@ -133,7 +133,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
   if (loading) {
     return (
       <div className="min-h-screen pt-32 flex items-center justify-center">
-        <div className="w-12 h-12 rounded-full border-2 border-[#D4A346] border-t-transparent animate-spin" />
+        <div className="w-12 h-12 rounded-full border-2 border-[#FF1E27] border-t-transparent animate-spin" />
       </div>
     );
   }
@@ -143,7 +143,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
       <div className="min-h-screen pt-32 text-center px-4">
         <h2 className="font-cinematic text-2xl text-white mb-2">Video Not Found</h2>
         <p className="text-zinc-400 mb-6">The requested reel or video does not exist.</p>
-        <Link to="/portfolio" className="px-6 py-3 rounded-xl bg-gold-gradient text-black font-semibold text-xs uppercase">
+        <Link to="/portfolio" className="px-6 py-3 rounded-xl bg-red-gradient text-white font-semibold text-xs uppercase shadow-lg shadow-red-600/30">
           Back to Portfolio
         </Link>
       </div>
@@ -153,9 +153,11 @@ export const VideoDetail = ({ onOpenAuth }) => {
   const isReel = video.aspect_ratio === '9:16';
   const isDirectFile =
     video.source_type === 'file' ||
+    video.video_type === 'upload' ||
     video.has_custom_video ||
     (video.video_url && (
       video.video_url.includes('/rails/active_storage/') ||
+      video.video_url.startsWith('/videos/') ||
       video.video_url.endsWith('.mp4') ||
       video.video_url.endsWith('.mov') ||
       video.video_url.endsWith('.webm')
@@ -200,17 +202,22 @@ export const VideoDetail = ({ onOpenAuth }) => {
         {/* Back Link */}
         <Link
           to="/portfolio"
-          className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-[#F5C869] transition-colors mb-6"
+          className="inline-flex items-center gap-2 text-xs font-semibold text-zinc-400 hover:text-red-400 transition-colors mb-6"
         >
           <ArrowLeft className="w-4 h-4" />
           <span>Back to Portfolio</span>
         </Link>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-10">
-          {/* Main Player & Info Column */}
-          <div className="lg:col-span-2 space-y-6">
+          {/* Main Player & Info Column: Slides from LEFT */}
+          <div 
+            className="lg:col-span-2 space-y-6"
+            data-aos="fade-right"
+            data-aos-duration="850"
+            data-aos-once="true"
+          >
             {/* Video Player Box */}
-            <div className={`w-full rounded-2xl overflow-hidden bg-black border border-[#24221C] shadow-2xl ${
+            <div className={`w-full rounded-2xl overflow-hidden bg-black border border-red-500/20 shadow-2xl ${
               isReel ? 'max-w-md mx-auto aspect-[9/16]' : 'aspect-video'
             }`}>
               {isDirectFile && video.video_url ? (
@@ -231,7 +238,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
                 />
               ) : (
                 <div className="w-full h-full flex flex-col items-center justify-center p-6 text-center">
-                  <Film className="w-12 h-12 text-[#D4A346] mb-3" />
+                  <Film className="w-12 h-12 text-[#FF1E27] mb-3" />
                   <p className="text-zinc-400 text-sm">{video.title}</p>
                 </div>
               )}
@@ -242,13 +249,13 @@ export const VideoDetail = ({ onOpenAuth }) => {
               <div className="flex flex-wrap items-center justify-between gap-4">
                 <div className="flex items-center gap-2">
                   {video.category && (
-                    <span className="px-3 py-1 rounded-full bg-[#1A1A22] border border-[#D4A346]/40 text-[#F5C869] text-xs font-medium uppercase tracking-wider">
+                    <span className="px-3 py-1 rounded-full bg-[#1A1A22] border border-red-500/40 text-red-400 text-xs font-medium uppercase tracking-wider">
                       {video.category.name}
                     </span>
                   )}
                   {video.duration && (
                     <span className="px-2.5 py-1 rounded-md bg-zinc-900 text-zinc-400 text-xs font-mono-code flex items-center gap-1">
-                      <Clock className="w-3.5 h-3.5 text-[#D4A346]" />
+                      <Clock className="w-3.5 h-3.5 text-red-400" />
                       {video.duration}
                     </span>
                   )}
@@ -260,17 +267,17 @@ export const VideoDetail = ({ onOpenAuth }) => {
                     onClick={handleLikeToggle}
                     className={`flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-semibold uppercase tracking-wider transition-all ${
                       liked
-                        ? 'bg-red-500/20 text-red-400 border border-red-500/40'
-                        : 'bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-[#D4A346]/40'
+                        ? 'bg-red-500/20 text-red-400 border border-red-500/60 shadow-lg shadow-red-600/20'
+                        : 'bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-red-500/40'
                     }`}
                   >
-                    <Heart className={`w-4 h-4 ${liked ? 'fill-current text-red-500' : ''}`} />
+                    <Heart className={`w-4 h-4 ${liked ? 'fill-current text-[#FF1E27]' : ''}`} />
                     <span>{likesCount} Likes</span>
                   </button>
 
                   <button
                     onClick={handleShare}
-                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-[#D4A346]/40 text-xs font-semibold uppercase tracking-wider transition-all"
+                    className="flex items-center gap-2 px-4 py-2 rounded-xl bg-zinc-900 border border-zinc-800 text-zinc-300 hover:text-white hover:border-red-500/40 text-xs font-semibold uppercase tracking-wider transition-all"
                   >
                     {copied ? <Check className="w-4 h-4 text-emerald-400" /> : <Share2 className="w-4 h-4" />}
                     <span>{copied ? 'Copied' : 'Share'}</span>
@@ -308,13 +315,33 @@ export const VideoDetail = ({ onOpenAuth }) => {
                   ))}
                 </div>
               )}
+
+              {/* Quick WhatsApp Shoot Booking CTA for Clients */}
+              <div className="p-4 rounded-xl bg-gradient-to-r from-red-950/40 via-[#181014] to-red-950/40 border border-red-500/40 flex flex-col sm:flex-row items-center justify-between gap-3 shadow-lg mt-4">
+                <div>
+                  <h4 className="font-heading font-bold text-sm text-white flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-red-500" />
+                    <span>Love this video style?</span>
+                  </h4>
+                  <p className="text-xs text-zinc-400 mt-0.5">Book a similar shoot with ultra-smooth gimbal motion starting at ₹1,499.</p>
+                </div>
+                <a
+                  href={`https://wa.me/917470678511?text=Hi%20MRD%20Cinema%20Editz!%20I%20loved%20the%20video%20"${encodeURIComponent(video.title)}"%20and%20want%20to%20book%20a%20similar%20shoot.`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="w-full sm:w-auto px-5 py-2.5 rounded-xl bg-red-gradient text-white font-heading font-bold text-xs uppercase tracking-wider flex items-center justify-center gap-2 shadow-lg shadow-red-600/30 hover:brightness-110 active:scale-95 transition-all shrink-0"
+                >
+                  <MessageCircle className="w-3.5 h-3.5 fill-current" />
+                  <span>Book on WhatsApp</span>
+                </a>
+              </div>
             </div>
 
             {/* Comments Section */}
             <div className="p-6 rounded-2xl bg-[#121216] border border-[#24221C] space-y-6">
               <div className="flex items-center justify-between">
                 <h3 className="font-heading font-bold text-lg text-white flex items-center gap-2">
-                  <MessageCircle className="w-5 h-5 text-[#D4A346]" />
+                  <MessageCircle className="w-5 h-5 text-red-500" />
                   <span>Comments ({comments.length})</span>
                 </h3>
               </div>
@@ -327,12 +354,12 @@ export const VideoDetail = ({ onOpenAuth }) => {
                     placeholder="Add a constructive critique or thought..."
                     value={commentBody}
                     onChange={(e) => setCommentBody(e.target.value)}
-                    className="flex-1 px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#D4A346] transition-colors"
+                    className="flex-1 px-4 py-3 rounded-xl bg-zinc-900/90 border border-zinc-800 text-sm text-white placeholder-zinc-500 focus:outline-none focus:border-[#FF1E27] transition-colors"
                   />
                   <button
                     type="submit"
                     disabled={submittingComment || !commentBody.trim()}
-                    className="px-5 py-3 rounded-xl bg-gold-gradient text-black font-semibold text-xs uppercase flex items-center gap-2 disabled:opacity-40"
+                    className="px-5 py-3 rounded-xl bg-red-gradient text-white font-semibold text-xs uppercase flex items-center gap-2 shadow-md shadow-red-600/30 hover:brightness-110 disabled:opacity-40"
                   >
                     <Send className="w-3.5 h-3.5" />
                     <span>Post</span>
@@ -343,7 +370,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
                   <p className="text-xs text-zinc-400 mb-2">Sign in to join the conversation and comment on this reel.</p>
                   <button
                     onClick={onOpenAuth}
-                    className="px-4 py-1.5 rounded-lg bg-[#D4A346] text-black font-semibold text-xs uppercase"
+                    className="px-4 py-1.5 rounded-lg bg-red-gradient text-white font-semibold text-xs uppercase shadow-md shadow-red-600/30 hover:brightness-110"
                   >
                     Sign In
                   </button>
@@ -361,7 +388,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
                         {comment.user?.avatar_url ? (
                           <img src={comment.user.avatar_url} alt="" className="w-8 h-8 rounded-full object-cover shrink-0" />
                         ) : (
-                          <div className="w-8 h-8 rounded-full bg-[#D4A346] text-black font-bold flex items-center justify-center text-xs shrink-0">
+                          <div className="w-8 h-8 rounded-full bg-red-gradient text-white font-bold flex items-center justify-center text-xs shrink-0">
                             {comment.user?.name?.charAt(0).toUpperCase()}
                           </div>
                         )}
@@ -369,7 +396,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
                           <div className="flex items-center gap-2">
                             <span className="text-xs font-semibold text-white">{comment.user?.name}</span>
                             {comment.user?.role === 'admin' && (
-                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-[#D4A346] text-black uppercase">Creator</span>
+                              <span className="px-1.5 py-0.5 rounded text-[9px] font-bold bg-red-gradient text-white uppercase shadow-sm">Creator</span>
                             )}
                             <span className="text-[10px] text-zinc-500">{new Date(comment.created_at).toLocaleDateString()}</span>
                           </div>
@@ -405,8 +432,13 @@ export const VideoDetail = ({ onOpenAuth }) => {
             </div>
           </div>
 
-          {/* Sidebar: Related Videos Column */}
-          <div className="space-y-6">
+          {/* Sidebar: Related Videos Column: Slides from RIGHT */}
+          <div 
+            className="space-y-6"
+            data-aos="fade-left"
+            data-aos-duration="850"
+            data-aos-once="true"
+          >
             <h3 className="font-cinematic font-bold text-lg text-white border-b border-zinc-800 pb-3">
               RELATED REELS
             </h3>
@@ -425,7 +457,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
       {/* Report Modal */}
       {reportingCommentId && (
         <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-black/80 backdrop-blur-sm">
-          <div className="max-w-sm w-full p-6 rounded-2xl bg-[#121216] border border-[#D4A346]/40 shadow-2xl">
+          <div className="max-w-sm w-full p-6 rounded-2xl bg-[#121216] border border-red-500/40 shadow-2xl">
             <h4 className="font-heading font-bold text-white mb-2">Report Comment</h4>
             <p className="text-xs text-zinc-400 mb-4">Please specify why you are flagging this comment for review.</p>
             <form onSubmit={handleReportSubmit} className="space-y-4">
@@ -435,7 +467,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
                 placeholder="Reason (e.g. Spam, offensive language, self promotion)..."
                 value={reportReason}
                 onChange={(e) => setReportReason(e.target.value)}
-                className="w-full p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-[#D4A346]"
+                className="w-full p-3 rounded-xl bg-zinc-900 border border-zinc-800 text-xs text-white focus:outline-none focus:border-[#FF1E27]"
               />
               <div className="flex gap-2">
                 <button
@@ -447,7 +479,7 @@ export const VideoDetail = ({ onOpenAuth }) => {
                 </button>
                 <button
                   type="submit"
-                  className="flex-1 py-2 rounded-xl bg-gold-gradient text-black text-xs font-bold uppercase"
+                  className="flex-1 py-2 rounded-xl bg-red-gradient text-white text-xs font-bold uppercase shadow-lg shadow-red-600/30"
                 >
                   Submit Report
                 </button>

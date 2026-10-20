@@ -11,6 +11,11 @@ import { Navbar } from './components/common/Navbar';
 import { Footer } from './components/common/Footer';
 import { FloatingWhatsApp } from './components/common/FloatingWhatsApp';
 import { AuthModal } from './components/common/AuthModal';
+import { MobileQuickBar } from './components/common/MobileQuickBar';
+
+// Animate On Scroll (AOS)
+import AOS from 'aos';
+import 'aos/dist/aos.css';
 
 // Public Pages
 import { Home } from './pages/Home';
@@ -18,7 +23,6 @@ import { Portfolio } from './pages/Portfolio';
 import { VideoDetail } from './pages/VideoDetail';
 import { Services } from './pages/Services';
 import { About } from './pages/About';
-import { MediaKit } from './pages/MediaKit';
 import { Contact } from './pages/Contact';
 import { PrivacyPolicy } from './pages/PrivacyPolicy';
 import { Terms } from './pages/Terms';
@@ -39,15 +43,21 @@ const PublicLayout = ({ settings, onOpenAuth }) => {
 
   useEffect(() => {
     window.scrollTo(0, 0);
+    // Refresh AOS element detection after navigation
+    const timer = setTimeout(() => {
+      AOS.refresh();
+    }, 120);
+    return () => clearTimeout(timer);
   }, [location.pathname]);
 
   return (
-    <div className="flex flex-col min-h-screen bg-[#0A0A0C] text-[#F7F7F8] selection:bg-[#D4A346] selection:text-black">
+    <div className="public-layout flex flex-col min-h-screen bg-theme-base text-theme-base selection:bg-[#E50914] selection:text-white transition-colors duration-300">
       <Navbar onOpenAuth={onOpenAuth} />
-      <main className="flex-1">
+      <main className="flex-1 pb-16 md:pb-0">
         <Outlet />
       </main>
       <FloatingWhatsApp settings={settings} />
+      <MobileQuickBar settings={settings} />
       <Footer settings={settings} />
     </div>
   );
@@ -58,6 +68,15 @@ export default function App() {
   const [authModalOpen, setAuthModalOpen] = useState(false);
 
   useEffect(() => {
+    // Initialize AOS with smooth, subtle easing and single-trigger setting
+    AOS.init({
+      duration: 850,
+      easing: 'ease-out-cubic',
+      once: true,
+      offset: 70,
+      delay: 50,
+    });
+
     const loadGlobalSettings = async () => {
       try {
         const res = await metadataService.getSiteSettings();
@@ -83,7 +102,6 @@ export default function App() {
                   <Route path="/portfolio/:id" element={<VideoDetail onOpenAuth={() => setAuthModalOpen(true)} />} />
                   <Route path="/services" element={<Services />} />
                   <Route path="/about" element={<About />} />
-                  <Route path="/media-kit" element={<MediaKit />} />
                   <Route path="/contact" element={<Contact settings={settings} />} />
                   <Route path="/privacy-policy" element={<PrivacyPolicy />} />
                   <Route path="/terms" element={<Terms />} />
